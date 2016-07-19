@@ -89,7 +89,7 @@ library
                      , FRP.Euphoria.Internal.Maplike
   -- other-modules:
   build-depends:       HUnit
-                     , base >= 4.7 && < 4.9
+                     , base >= 4.7 && < 4.10
                      , elerea >= 2.7
                      , enummapset-th >= 0.6
                      , deepseq
