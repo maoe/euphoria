@@ -20,6 +20,9 @@ matrix:
     - env: CABALVER=1.24 GHCVER=8.0.1
       compiler: ": #GHC 8.0.1"
       addons: {apt: {packages: [cabal-install-1.24,ghc-8.0.1,happy-1.19.5], sources: [hvr-ghc]}}
+    - env: CABALVER=1.24 GHCVER=7.10.3 ELEREAVER=2.8.0
+      compiler: ": #GHC 7.10.3"
+      addons: {apt: {packages: [cabal-install-1.24,ghc-7.10.3,happy-1.19.5], sources: [hvr-ghc]}}
   allow_failures:
     - env: CABALVER=1.24 GHCVER=8.0.1
 
@@ -39,7 +42,12 @@ install:
    fi
  - travis_retry cabal update -v
  - sed -i 's/^jobs:/-- jobs:/' ${HOME}/.cabal/config
- - cabal new-build ${TEST} ${BENCH} --dep
+ - if [ -n "$ELEREAVER" ];
+   then
+     cabal new-build ${TEST} ${BENCH} --dep --constraint="elerea == ${ELEREAVER}";
+   else
+     cabal new-build ${TEST} ${BENCH} --dep;
+   fi
 
 # Here starts the actual work to be performed for the package under test;
 # any command which exits with a non-zero exit code causes the build to fail.
