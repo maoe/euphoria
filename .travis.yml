@@ -42,6 +42,7 @@ install:
    fi
  - travis_retry cabal update -v
  - sed -i 's/^jobs:/-- jobs:/' ${HOME}/.cabal/config
+ - echo ${CABALOPTS}
  - cabal new-configure ${CABALOPTS}
  - cabal new-build ${TEST} ${BENCH} --dep
 
